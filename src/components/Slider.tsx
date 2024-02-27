@@ -17,6 +17,7 @@ const Slider: React.FC<SliderProps> = ({ Color, Colors, Colorl }) => {
     const handleMouseMove = (moveEvent: MouseEvent) => {
         const deltaX = moveEvent.clientX - startX;
         setPosition((prevPosition) => prevPosition + deltaX);
+        console.log(position);
     };
 
     const handleMouseUp = () => {
@@ -32,7 +33,7 @@ const Slider: React.FC<SliderProps> = ({ Color, Colors, Colorl }) => {
         <div className="flex items-center justify-center h-screen">
             <div onMouseDown={handleMouseDown}>
                 <SliderSquare color={Color} colors={Colors} colorl={Colorl} />
-            </div>
+            </div>  
         </div>
   );
 };
