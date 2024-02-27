@@ -17,7 +17,21 @@ bun run lint
 # to check ESlint errors
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. //change the port
+You can now run the development server with Docker:
+
+```bash
+docker buildx build -t {*/name_of_the_image/*} .
+#create docker image based on lastest bun image
+
+docker run -it -p 8081:3000 {*/name_ofèthe_image/*}
+#run the frontend by exposing port 8081
+```
+
+From bun:
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. #change the port
+
+If using Docker:
+Open [http://localhost:8081](http://localhost:8081) with your browser to see the result.
 
 ## Learn More
 
