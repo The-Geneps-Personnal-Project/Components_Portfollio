@@ -1,41 +1,59 @@
-"use client";
-import React, {useState} from 'react';
-import SliderSquare from './SliderSquare';
+/*----React----*/
+import React, { useState, useRef } from 'react';
 
-interface SliderProps {
+/*--Components--*/
+import SliderSquare from './SliderSquare';
+import SliderVeil from './SliderVeil';
+
+type SliderColors = {
   Color: string;
   Colors: string;
   Colorl: string;
 }
 
-const Slider: React.FC<SliderProps> = ({ Color, Colors, Colorl }) => {
-    const [position, setPosition] = useState(0);
+const Slider: React.FC<SliderColors> = ({ Color, Colors, Colorl }) => {
+  const [position, setPosition] = useState(49.2);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
-    const handleMouseDown = (e: React.MouseEvent) => {
-        const startX = e.clientX;
+  const handleMouseDown = (e: React.MouseEvent) => {
+    const slider = sliderRef.current;
+
+    if (!slider) return;
 
     const handleMouseMove = (moveEvent: MouseEvent) => {
-        const deltaX = moveEvent.clientX - startX;
-        setPosition((prevPosition) => prevPosition + deltaX);
-        console.log(position);
+      const currentPosition = moveEvent.clientX;
+      const sliderRect = slider.getBoundingClientRect();
+      const minPosition = sliderRect.left + 72; /* Square size (fixed on all screen size) it is not the same distance left to right because de square is rotated and not centered */
+      const maxPosition = sliderRect.right - 106;
+
+      if (currentPosition >= minPosition && currentPosition <= maxPosition) {
+        const newPosition = ((currentPosition - sliderRect.left) / sliderRect.width) * 100;
+        setPosition(newPosition);
+      }
     };
 
     const handleMouseUp = () => {
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
     };
 
-        document.addEventListener('mousemove', handleMouseMove);
-        document.addEventListener('mouseup', handleMouseUp);
-    };
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
 
-    return (
-        <div className="flex items-center justify-center h-screen">
-            <div onMouseDown={handleMouseDown}>
-                <SliderSquare color={Color} colors={Colors} colorl={Colorl} />
-            </div>  
-        </div>
+  return (
+    <div ref={sliderRef} className="flex items-center justify-center h-screen relative">
+      <div
+        onMouseDown={handleMouseDown}
+        className="absolute top-0 bottom-0"
+        style={{ left: `calc(${position}% - 2rem)` }} // Adjust to center the square correctly
+      >
+
+        <SliderVeil   color={Color} colors={Colors} colorl={Colorl} />
+        <SliderSquare color={Color} colors={Colors} colorl={Colorl} />
+      </div>
+    </div>
   );
 };
 
-export default Slider
+export default Slider;
