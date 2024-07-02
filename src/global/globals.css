@@ -56,3 +56,15 @@ body {
   animation: diagonal-bounce-left 1s infinite;
 }
 
+/* Hide scrollbar but keep scroll functionality */
+/* Sera utile plus tard (en cours de test)*/
+.hide-scroll {
+  overflow: auto;  /* Enable scrolling */
+  scrollbar-width: none;  /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none;  /* Hide scrollbar for IE, Edge */
+}
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;  /* Hide scrollbar for Chrome, Safari, Opera */
+}
+

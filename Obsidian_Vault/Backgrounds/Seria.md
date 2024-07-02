@@ -1,10 +1,10 @@
 
 - Seria 1
-	- size 75%
-	- no cut 
+	- size 42%
+	- Pos 42% bottom
 - Seria 2
-	- size 40%
-	- no cut
+	- size 45%
+	- pos 54% bottom
 - Seria 3
-	- size 40%
-	- no cut
+	- size 45%
+	- pos 50% bottom
